@@ -10,7 +10,9 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
-    if: ${{ github.event.workflow_run.conclusion == 'success' && secrets.KAMAL_REGISTRY_PASSWORD != '' && secrets.RAILS_MASTER_KEY != '' }}
+    if: false # deploy is disabled by default
+    # uncomment to enable:
+    # if: ${{ github.event.workflow_run.conclusion == 'success' }}
     timeout-minutes: 20
     env:
       DOCKER_BUILDKIT: 1
