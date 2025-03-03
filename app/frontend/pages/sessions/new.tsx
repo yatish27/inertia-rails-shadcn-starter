@@ -16,11 +16,7 @@ type LoginForm = {
   remember: boolean
 }
 
-type LoginProps = {
-  status?: string
-}
-
-export default function Login({ status }: LoginProps) {
+export default function Login() {
   const { data, setData, post, processing, errors, reset } = useForm<LoginForm>(
     {
       email: "",
@@ -103,12 +99,6 @@ export default function Login({ status }: LoginProps) {
           </TextLink>
         </div>
       </form>
-
-      {status && (
-        <div className="mb-4 text-center text-sm font-medium text-green-600">
-          {status}
-        </div>
-      )}
     </AuthLayout>
   )
 }
