@@ -29,6 +29,11 @@ export default [
   pluginReact.configs.flat['jsx-runtime'],
   prettierConfig,
   {
+    rules: {
+      "@typescript-eslint/consistent-type-imports": "error"
+    }
+  },
+  {
     ...tseslint.configs.disableTypeChecked,
     files: ['**/*.js'],
   }
