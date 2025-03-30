@@ -1,6 +1,6 @@
 import { Head, useForm } from "@inertiajs/react"
 import { LoaderCircle } from "lucide-react"
-import { FormEventHandler } from "react"
+import type { FormEventHandler } from "react"
 
 import InputError from "@/components/input-error"
 import TextLink from "@/components/text-link"
@@ -10,20 +10,20 @@ import { Label } from "@/components/ui/label"
 import AuthLayout from "@/layouts/auth-layout"
 import { newIdentityPasswordResetPath, signInPath, signUpPath } from "@/routes"
 
-type LoginForm = {
+interface LoginForm {
   email: string
   password: string
   remember: boolean
 }
 
 export default function Login() {
-  const { data, setData, post, processing, errors, reset } = useForm<LoginForm>(
-    {
-      email: "",
-      password: "",
-      remember: false,
-    },
-  )
+  const { data, setData, post, processing, errors, reset } = useForm<
+    Required<LoginForm>
+  >({
+    email: "",
+    password: "",
+    remember: false,
+  })
 
   const submit: FormEventHandler = (e) => {
     e.preventDefault()

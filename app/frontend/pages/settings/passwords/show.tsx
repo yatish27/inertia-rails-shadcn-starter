@@ -1,6 +1,6 @@
 import { Transition } from "@headlessui/react"
 import { Head, useForm } from "@inertiajs/react"
-import { FormEventHandler, useRef } from "react"
+import { type FormEventHandler, useRef } from "react"
 
 import HeadingSmall from "@/components/heading-small"
 import InputError from "@/components/input-error"
@@ -10,7 +10,7 @@ import { Label } from "@/components/ui/label"
 import AppLayout from "@/layouts/app-layout"
 import SettingsLayout from "@/layouts/settings/layout"
 import { settingsPasswordPath } from "@/routes"
-import { type BreadcrumbItem } from "@/types"
+import type { BreadcrumbItem } from "@/types"
 
 const breadcrumbs: BreadcrumbItem[] = [
   {
@@ -19,12 +19,18 @@ const breadcrumbs: BreadcrumbItem[] = [
   },
 ]
 
+interface PasswordForm {
+  password_challenge: string
+  password: string
+  password_confirmation: string
+}
+
 export default function Password() {
   const passwordInput = useRef<HTMLInputElement>(null)
   const currentPasswordInput = useRef<HTMLInputElement>(null)
 
   const { data, setData, errors, put, reset, processing, recentlySuccessful } =
-    useForm({
+    useForm<Required<PasswordForm>>({
       password_challenge: "",
       password: "",
       password_confirmation: "",

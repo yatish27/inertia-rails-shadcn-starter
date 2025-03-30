@@ -1,6 +1,6 @@
 import { Transition } from "@headlessui/react"
 import { Head, Link, useForm, usePage } from "@inertiajs/react"
-import { FormEventHandler, useRef } from "react"
+import { type FormEventHandler, useRef } from "react"
 
 import HeadingSmall from "@/components/heading-small"
 import InputError from "@/components/input-error"
@@ -10,7 +10,7 @@ import { Label } from "@/components/ui/label"
 import AppLayout from "@/layouts/app-layout"
 import SettingsLayout from "@/layouts/settings/layout"
 import { identityEmailVerificationPath, settingsEmailPath } from "@/routes"
-import { type BreadcrumbItem, type SharedData } from "@/types"
+import type { BreadcrumbItem, SharedData } from "@/types"
 
 const breadcrumbs: BreadcrumbItem[] = [
   {
@@ -19,7 +19,12 @@ const breadcrumbs: BreadcrumbItem[] = [
   },
 ]
 
-export default function Email({ status }: { status?: string }) {
+interface EmailForm {
+  password_challenge: string
+  email: string
+}
+
+export default function Email() {
   const currentPasswordInput = useRef<HTMLInputElement>(null)
 
   const { auth } = usePage<SharedData>().props
@@ -31,7 +36,7 @@ export default function Email({ status }: { status?: string }) {
     reset,
     processing,
     recentlySuccessful,
-  } = useForm({
+  } = useForm<Required<EmailForm>>({
     password_challenge: "",
     email: auth.user.email,
   })
@@ -93,12 +98,6 @@ export default function Email({ status }: { status?: string }) {
                     Click here to resend the verification email.
                   </Link>
                 </p>
-
-                {status === "verification-link-sent" && (
-                  <div className="mt-2 text-sm font-medium text-green-600">
-                    A new verification link has been sent to your email address.
-                  </div>
-                )}
               </div>
             )}
 

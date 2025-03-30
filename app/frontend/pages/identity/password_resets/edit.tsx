@@ -1,6 +1,6 @@
 import { Head, useForm } from "@inertiajs/react"
 import { LoaderCircle } from "lucide-react"
-import { FormEventHandler } from "react"
+import type { FormEventHandler } from "react"
 
 import InputError from "@/components/input-error"
 import { Button } from "@/components/ui/button"
@@ -9,12 +9,12 @@ import { Label } from "@/components/ui/label"
 import AuthLayout from "@/layouts/auth-layout"
 import { identityPasswordResetPath } from "@/routes"
 
-type ResetPasswordProps = {
+interface ResetPasswordProps {
   sid: string
   email: string
 }
 
-type ResetPasswordForm = {
+interface ResetPasswordForm {
   sid: string
   email: string
   password: string
@@ -22,13 +22,14 @@ type ResetPasswordForm = {
 }
 
 export default function ResetPassword({ sid, email }: ResetPasswordProps) {
-  const { data, setData, put, processing, errors, reset } =
-    useForm<ResetPasswordForm>({
-      sid: sid,
-      email: email,
-      password: "",
-      password_confirmation: "",
-    })
+  const { data, setData, put, processing, errors, reset } = useForm<
+    Required<ResetPasswordForm>
+  >({
+    sid: sid,
+    email: email,
+    password: "",
+    password_confirmation: "",
+  })
 
   const submit: FormEventHandler = (e) => {
     e.preventDefault()

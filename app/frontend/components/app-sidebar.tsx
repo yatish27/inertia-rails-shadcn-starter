@@ -14,14 +14,14 @@ import {
   SidebarMenuItem,
 } from "@/components/ui/sidebar"
 import { dashboardPath } from "@/routes"
-import { type NavItem } from "@/types"
+import type { NavItem } from "@/types"
 
 import AppLogo from "./app-logo"
 
 const mainNavItems: NavItem[] = [
   {
     title: "Dashboard",
-    url: dashboardPath(),
+    href: dashboardPath(),
     icon: LayoutGrid,
   },
 ]
@@ -29,12 +29,12 @@ const mainNavItems: NavItem[] = [
 const footerNavItems: NavItem[] = [
   {
     title: "Repository",
-    url: "https://github.com/skryukov/inertia-rails-shadcn-starter",
+    href: "https://github.com/skryukov/inertia-rails-shadcn-starter",
     icon: Folder,
   },
   {
     title: "Documentation",
-    url: "https://inertia-rails.dev",
+    href: "https://inertia-rails.dev",
     icon: BookOpen,
   },
 ]

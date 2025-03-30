@@ -1,6 +1,6 @@
 import { Transition } from "@headlessui/react"
 import { Head, useForm, usePage } from "@inertiajs/react"
-import { FormEventHandler } from "react"
+import type { FormEventHandler } from "react"
 
 import DeleteUser from "@/components/delete-user"
 import HeadingSmall from "@/components/heading-small"
@@ -11,7 +11,7 @@ import { Label } from "@/components/ui/label"
 import AppLayout from "@/layouts/app-layout"
 import SettingsLayout from "@/layouts/settings/layout"
 import { settingsProfilePath } from "@/routes"
-import { type BreadcrumbItem, type SharedData } from "@/types"
+import type { BreadcrumbItem, SharedData } from "@/types"
 
 const breadcrumbs: BreadcrumbItem[] = [
   {
@@ -20,11 +20,15 @@ const breadcrumbs: BreadcrumbItem[] = [
   },
 ]
 
+interface ProfileForm {
+  name: string
+}
+
 export default function Profile() {
   const { auth } = usePage<SharedData>().props
 
   const { data, setData, patch, errors, processing, recentlySuccessful } =
-    useForm({
+    useForm<Required<ProfileForm>>({
       name: auth.user.name,
     })
 

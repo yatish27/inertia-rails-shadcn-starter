@@ -1,16 +1,16 @@
 import { createInertiaApp } from "@inertiajs/react"
-import { ReactNode, createElement } from "react"
+import { type ReactNode, createElement } from "react"
 import { createRoot } from "react-dom/client"
 
 import { initializeTheme } from "@/hooks/use-appearance"
+import PersistentLayout from "@/layouts/persistent-layout"
 
 // Temporary type definition, until @inertiajs/react provides one
-type ResolvedComponent = {
+interface ResolvedComponent {
   default: ReactNode & { layout?: (page: ReactNode) => ReactNode }
-  layout?: (page: ReactNode) => ReactNode
 }
 
-const appName = (import.meta.env.VITE_APP_NAME || "Rails") as string
+const appName = (import.meta.env.VITE_APP_NAME ?? "Rails") as string
 
 void createInertiaApp({
   // Set default page title
@@ -31,7 +31,8 @@ void createInertiaApp({
     // and use the following line.
     // see https://inertia-rails.dev/guide/pages#default-layouts
     //
-    // page.default.layout ??= (page) => createElement(Layout, null, page)
+    page.default.layout ??= (page) =>
+      createElement(PersistentLayout, null, page)
 
     return page
   },
